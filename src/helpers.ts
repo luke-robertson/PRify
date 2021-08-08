@@ -13,7 +13,7 @@ const readlineInterface = readline.createInterface({
   output: process.stdout,
 });
 
-const ask = (questionText: string): Promise<string> => {
+export const ask = (questionText: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     readlineInterface.question(questionText, (input) => resolve(input));
   });

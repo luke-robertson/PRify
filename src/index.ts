@@ -15,8 +15,9 @@ const run = async () => {
   const path = await setup();
   const git = simpleGit(getOptions(path));
 
+  console.log('')
   const pushToGit: string = await ask(
-    'Do you want to push the new branches remotely to git? Y/N'
+    'Do you want to push the new branches remotely to git? Y/N - '
   );
 
   const isClean = await checkClean(git);
