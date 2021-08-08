@@ -8,11 +8,16 @@ import {
   parseTextToArray,
   setup,
   checkClean,
+  ask
 } from './helpers';
 
 const run = async () => {
   const path = await setup();
   const git = simpleGit(getOptions(path));
+
+  const pushToGit: string = await ask(
+    'Do you want to push the new branches remotely to git? Y/N'
+  );
 
   const isClean = await checkClean(git);
   if (!isClean) {
@@ -73,6 +78,9 @@ const run = async () => {
 
       await git.add('--all');
       await git.commit('.');
+      if (pushToGit.toUpperCase() === 'Y') {
+        await git.push(['--set-upstream','origin', brachName])
+      }
     }
   } catch (e) {
     console.log(e);
