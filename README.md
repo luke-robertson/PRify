@@ -4,7 +4,7 @@ Sick of having BIG PR's? Well look no further, this tool will break up your PR b
 
 ## How to use 🦆
 
-- Check out the branch on your local terminal, in canva/canva repo and pull green.
+- Check out the branch you wish to break up, in canva/canva repo and pull green.
 - Clone this repo somewhere
 - Run `yarn install`
 - Run `yarn start`
@@ -20,7 +20,6 @@ If you have a branch such as `feature/test-branch-123` and it touches 4 owners f
 - feature/test-branch-123-2
 - feature/test-branch-123-3
 - feature/test-branch-123-4
-
 
 ## Notes 📝
 
