@@ -29,14 +29,12 @@ const run = async () => {
   console.log('');
 
   const rawFileNames = await getFiles(git);
-
   if (!rawFileNames) {
     console.log('Cant find file changes');
     return process.exit();
   }
 
   const fileNames = rawFileNames ? parseTextToArray(rawFileNames) : [];
-
   const ownersMap = fileNames.reduce((acc, item) => {
     const owner = moonWalk(path + stripEndOfPath(item));
     if (!acc[owner]) {
