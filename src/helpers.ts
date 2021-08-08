@@ -15,17 +15,19 @@ const readlineInterface = readline.createInterface({
   output: process.stdout,
 });
 
-const ask = (questionText: string) => {
+const ask = (questionText: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     readlineInterface.question(questionText, (input) => resolve(input));
   });
 };
 
-export const setup = async () => {
+export const setup = async (): Promise<string>  => {
   if (!path) {
-    const newPath = await ask('Please enter your canva repo path - format should be something like /Users/luke.r/Documents/dev/canva/:\n');
+    const newPath: string = await ask('Please enter your canva repo path - format should be something like /Users/luke.r/Documents/dev/canva/:\n');
     fs.writeFileSync('./options.ts', `export const path = '${newPath}';`);
+    return newPath
   }
+  return path
 }
 
 export const stripEndOfPath = (dir: string) => dir.substring(0, dir.lastIndexOf('/'));

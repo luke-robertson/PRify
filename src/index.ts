@@ -8,10 +8,9 @@ import {
   parseTextToArray,
   setup,
 } from './helpers';
-import { path } from '../options';
 
 const run = async () => {
-  await setup();
+  const path = await setup();
   const git = simpleGit(getOptions(path));
   console.log('This only works if your based on green and have latest green');
   const currentBranch = await getBranch(git);
