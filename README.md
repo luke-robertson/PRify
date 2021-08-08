@@ -1,4 +1,4 @@
-# SUPER PR  🚀  🧨  🙏
+# PRify  🚀  🧨  🙏
 
 Sick of having BIG PR's? Well look no further, this tool will break up your PR by owners into separate branches.
 
