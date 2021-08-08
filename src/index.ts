@@ -7,16 +7,19 @@ import {
   getBranch,
   parseTextToArray,
   setup,
+  checkClean
 } from './helpers';
 
 const run = async () => {
   const path = await setup();
   const git = simpleGit(getOptions(path));
+  const isClean = await checkClean(git);
+  console.log('isClean', isClean);
   console.log('This only works if your based on green and have latest green');
   const currentBranch = await getBranch(git);
   console.log('Current Branch', currentBranch);
   const rawFileNames = await getFiles(git);
-
+  
   if (!rawFileNames) {
     return console.log('Cant find file changes');
   }
@@ -35,7 +38,10 @@ const run = async () => {
   console.log('Found:', fileNames.length, 'files');
   console.log('Found:', Object.keys(ownersMap).length, 'OWNER files');
 
+  console.log('Checking out green as new branch base')
   await git.checkout('green');
+  console.log('Pulling green')
+  await git.pull();
   try {
     for (const [i, files] of Object.values(ownersMap).entries()) {
       const index = i + 1;

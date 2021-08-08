@@ -67,3 +67,9 @@ export const getBranch = (git: SimpleGit): Promise<string> =>
     // @ts-ignore
     git.branch('--show-current', (_, data) => resolve(data.current));
   });
+
+export const checkClean = (git: SimpleGit): Promise<string> =>
+  new Promise((resolve) => {
+    // @ts-ignore
+    git.diff('--name-only', (_, data) => resolve(data.length > 0));
+  });
