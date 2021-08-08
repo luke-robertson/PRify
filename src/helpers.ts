@@ -19,18 +19,21 @@ const ask = (questionText: string): Promise<string> => {
   });
 };
 
-export const setup = async (): Promise<string>  => {
+export const setup = async (): Promise<string> => {
   try {
     // @ts-ignore
-    const { path } = await import('./src/options') 
-    return path
+    const { path } = await import('./options');
+    console.log('Canva Path:', path);
+    return path;
   } catch {
-    const newPath: string = await ask('Please enter your canva repo path - format should be something like /Users/luke.r/Documents/dev/canva/:\n');
-    fs.writeFileSync('./src/options.ts', `export const path = '${newPath}';`);
-    return newPath
+    const newPath: string = await ask(
+      'Please enter your canva repo path - format should be something like /Users/luke.r/Documents/dev/canva/:\n'
+    );
+    const pathWithSlash = newPath[newPath.length + 1] === '/' ? newPath : newPath + '/';
+    fs.writeFileSync('./src/options.ts', `export const path = '${pathWithSlash}';`);
+    return newPath;
   }
-
-}
+};
 
 export const stripEndOfPath = (dir: string) => dir.substring(0, dir.lastIndexOf('/'));
 

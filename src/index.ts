@@ -48,6 +48,7 @@ const run = async () => {
         await git.checkout(brachName);
       }
       for (const file of files) {
+        // console.log(file)
         await git.checkout([currentBranch, file]);
       }
 
@@ -59,6 +60,8 @@ const run = async () => {
   }
 
   await git.checkout(currentBranch);
+
+  return process.exit();
 };
 
 run();
