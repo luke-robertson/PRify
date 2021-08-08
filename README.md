@@ -25,3 +25,7 @@ These branches are locally committed with the correct files per OWNER file, you 
 
 Please make sure you have pulled green and there are no uncommitted or staged files.
 The new branches will be based on green, so can be PR independently, but will need to be merged after
+
+## todo
+
+Push remote files automatically
