@@ -6,19 +6,16 @@ import {
   getFiles,
   getBranch,
   parseTextToArray,
+  setup,
 } from './helpers';
-
-// replace this with your /canva/ repo path
-const folder = '/Users/luke.r/Documents/dev/canva/';
+import { path } from '../options';
 
 const run = async () => {
-  const git = simpleGit(getOptions(folder));
-
+  await setup();
+  const git = simpleGit(getOptions(path));
   console.log('This only works if your based on green and have latest green');
   const currentBranch = await getBranch(git);
-
   console.log('Current Branch', currentBranch);
-
   const rawFileNames = await getFiles(git);
 
   if (!rawFileNames) {
@@ -28,7 +25,7 @@ const run = async () => {
   const fileNames = rawFileNames ? parseTextToArray(rawFileNames) : [];
 
   const ownersMap = fileNames.reduce((acc, item) => {
-    const owner = moonWalk(folder + stripEndOfPath(item));
+    const owner = moonWalk(path + stripEndOfPath(item));
     if (!acc[owner]) {
       acc[owner] = [];
     }
