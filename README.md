@@ -24,4 +24,5 @@ If you have a branch such as `feature/test-branch-123` and it touches 4 owners f
 ## Notes 📝
 
 Please make sure you have pulled green and there are no uncommitted or staged files.
-The new branches will be based on green, so can be PR independently, but will need to be merged after. The branches are either locally committed or pushed to git depending upon what option you selected.
+The new branches will be based on green, but then will be PR train.
+The branches are either locally committed or pushed to git depending upon what option you selected.
