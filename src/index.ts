@@ -36,23 +36,26 @@ const run = async () => {
   console.log('Found:', Object.keys(ownersMap).length, 'OWNER files');
 
   await git.checkout('green');
+  try {
+    for (const [i, files] of Object.values(ownersMap).entries()) {
+      const index = i + 1;
+      const brachName = currentBranch + '-' + index;
+      console.log('Making Branch:', brachName);
+      try {
+        await git.checkoutBranch(brachName, 'green');
+      } catch (e) {
+        console.log('Branch exists, checking it out');
+        await git.checkout(brachName);
+      }
+      for (const file of files) {
+        await git.checkout([currentBranch, file]);
+      }
 
-  for (const [i, files] of Object.values(ownersMap).entries()) {
-    const index = i + 1;
-    const brachName = currentBranch + '-' + index;
-    console.log('Making Branch:', brachName);
-    try {
-      await git.checkoutBranch(brachName, 'green');
-    } catch (e) {
-      console.log('Branch exists, checking it out');
-      await git.checkout(brachName);
+      await git.add('--all');
+      await git.commit('.');
     }
-    for (const file of files) {
-      await git.checkout([currentBranch, file]);
-    }
-
-    await git.add('--all');
-    await git.commit('.');
+  } catch (e) {
+    console.log(e);
   }
 
   await git.checkout(currentBranch);

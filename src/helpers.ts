@@ -1,8 +1,6 @@
 import { SimpleGit, SimpleGitOptions } from 'simple-git';
 import fs from 'fs';
 import readline from 'readline';
-import simpleGit from 'simple-git';
-import { path } from '../options';
 
 export const getOptions: (folderName: string) => Partial<SimpleGitOptions> = (folderName) => ({
   baseDir: folderName,
@@ -22,12 +20,16 @@ const ask = (questionText: string): Promise<string> => {
 };
 
 export const setup = async (): Promise<string>  => {
-  if (!path) {
+  try {
+    // @ts-ignore
+    const { path } = await import('./src/options') 
+    return path
+  } catch {
     const newPath: string = await ask('Please enter your canva repo path - format should be something like /Users/luke.r/Documents/dev/canva/:\n');
-    fs.writeFileSync('./options.ts', `export const path = '${newPath}';`);
+    fs.writeFileSync('./src/options.ts', `export const path = '${newPath}';`);
     return newPath
   }
-  return path
+
 }
 
 export const stripEndOfPath = (dir: string) => dir.substring(0, dir.lastIndexOf('/'));
