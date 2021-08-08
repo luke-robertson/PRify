@@ -20,9 +20,16 @@ const ask = (questionText: string): Promise<string> => {
 };
 
 export const setup = async (): Promise<string> => {
+  const pulledGreen: string = await ask('Have you pulled green on your branch? Y/N - ');
+  if (pulledGreen.toUpperCase() === 'N') {
+    return process.exit();
+  }
   try {
     // @ts-ignore
     const { path } = await import('./options');
+    if (!path) {
+      throw Error();
+    }
     console.log('Canva Path:', path);
     return path;
   } catch {
@@ -31,7 +38,7 @@ export const setup = async (): Promise<string> => {
     );
     const pathWithSlash = newPath[newPath.length + 1] === '/' ? newPath : newPath + '/';
     fs.writeFileSync('./src/options.ts', `export const path = '${pathWithSlash}';`);
-    return newPath;
+    return pathWithSlash;
   }
 };
 
