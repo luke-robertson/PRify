@@ -71,5 +71,5 @@ export const getBranch = (git: SimpleGit): Promise<string> =>
 export const checkClean = (git: SimpleGit): Promise<string> =>
   new Promise((resolve) => {
     // @ts-ignore
-    git.diff('--name-only', (_, data) => resolve(data.length > 0));
+    git.diff('--name-only', (_, data) => resolve(data.trim().length === 0));
   });
