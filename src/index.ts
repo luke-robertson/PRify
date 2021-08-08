@@ -15,8 +15,6 @@ const run = async () => {
   const git = simpleGit(getOptions(path));
 
   const isClean = await checkClean(git);
-  console.log('isClean', isClean);
-
   if (!isClean) {
     console.log('canva/canva is not clean, please remove files');
     return process.exit();
