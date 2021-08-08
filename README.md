@@ -5,6 +5,7 @@ Sick of having BIG PR's? Well look no further, this tool will break up your PR b
 ## How to use
 
 - Check out the branch on your local terminal, in canva/canva repo and pull green.
+- Run `yarn install`
 - Run `yarn start`
 - - If first time, please enter a canva/canva path e.g `/Users/luke.r/Documents/dev/canva/`
 - - It will be stored in `./src/options.ts`
