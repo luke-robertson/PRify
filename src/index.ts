@@ -7,7 +7,7 @@ import {
   getBranch,
   parseTextToArray,
   setup,
-  checkClean
+  checkClean,
 } from './helpers';
 
 const run = async () => {
@@ -20,13 +20,16 @@ const run = async () => {
     return process.exit();
   }
 
+  console.log('');
   console.log('This only works if your based on green and have latest green');
+  console.log('');
 
   const currentBranch = await getBranch(git);
   console.log('Current Branch', currentBranch);
+  console.log('');
 
   const rawFileNames = await getFiles(git);
-  
+
   if (!rawFileNames) {
     console.log('Cant find file changes');
     return process.exit();
@@ -45,11 +48,13 @@ const run = async () => {
 
   console.log('Found:', fileNames.length, 'files');
   console.log('Found:', Object.keys(ownersMap).length, 'OWNER files');
+  console.log('');
 
-  console.log('Checking out green as new branch base')
+  console.log('Checking out green as new branch base');
   await git.checkout('green');
 
-  console.log('Pulling green')
+  console.log('Pulling green');
+  console.log('');
   await git.pull();
 
   try {
@@ -74,6 +79,10 @@ const run = async () => {
   } catch (e) {
     console.log(e);
   }
+
+  console.log('');
+  console.log('Results:');
+  Object.values(ownersMap).map((_, i) => console.log(currentBranch + '-' + i));
 
   await git.checkout(currentBranch);
 
